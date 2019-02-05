@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html ng-app="todoApp">
+<head>
+    <title></title>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <script src="Scripts/angular.js"></script>
+    <script>
+
+        var todoApp = angular.module("todoApp", []);
+
+        todoApp.controller("ToDoCtrl", function ($scope) {
+
+            var Adaptee = {
+                Run: () => {
+                    console.log("Run");
+                }
+            }
+
+            var Adapter = {
+                Request() {
+                    Adaptee.Run();
+                }
+            }
+
+            Adapter.Request();
+
+            //---------------------------------------------------------
+
+            //class Adaptee {
+            //    Run() {
+            //        console.log("Run");
+            //    }
+            //}
+
+            //class Adapter {
+            //    constructor() {
+            //        this.adaptee = new Adaptee();
+            //    }
+
+            //    Request() {
+            //        this.adaptee.Run();
+            //    }
+            //}
+
+            //var adapter = new Adapter();
+            //adapter.Request();
+
+            //---------------------------------------------------------
+
+            ////никто не ожидает ITarget - следовательно он не нужен
+            //class ITarget {
+            //    Request() { throw new Error('You have to implement the method!');}
+            //}
+
+            ////class Adapter extends ITarget {
+            ////    Request() {
+            ////        new Adaptee().Run();
+            ////    }
+            ////}
+
+            //class Adaptee {
+            //    Run() {
+            //        console.log("Run");
+            //    }
+            //}
+
+            ////заменяем ITarget на Adaptee
+            //class Adapter extends Adaptee {
+            //    Request() {
+            //        super.Run();
+            //    }
+            //}
+
+            //var adapter = new Adapter();
+            //adapter.Request();
+            
+        });
+
+    </script>
+</head>
+<body ng-controller="ToDoCtrl">
+    <div class="container">
+        
+
+    </div>
+</body>
+</html>

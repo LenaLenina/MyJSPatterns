@@ -1,0 +1,174 @@
+﻿<!DOCTYPE html>
+<html ng-app="todoApp">
+<head>
+    <title></title>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <script src="Scripts/angular.js"></script>
+    <script>
+
+        var todoApp = angular.module("todoApp", []);
+
+        todoApp.controller("ToDoCtrl", function ($scope) {
+
+            var strategyA = {
+                algorithmInterface: () => {
+                    console.log("StrategyA");
+                }
+            }
+
+            var strategyB = {
+                algorithmInterface: () => {
+                    console.log("StrategyB");
+                }
+            }
+
+            var strategyC = {
+                algorithmInterface: () => {
+                    console.log("StrategyC");
+                }
+            }
+
+            var context = {
+                strategy: null,
+                contextInterface: () => {
+                    context.strategy.algorithmInterface();
+                }
+            }
+            
+            $scope.Request = () => {
+                context.strategy = strategyA;
+                context.contextInterface();
+            }
+
+            $scope.Request2 = () => {
+                context.strategy = strategyB;
+                context.contextInterface();
+            }
+
+            $scope.Request3 = () => {
+                context.strategy = strategyC;
+                context.contextInterface();
+            }
+
+//-------------------------------------------------------------------------------
+
+            //var StrategyA = (function () {
+            //    function StrategyA() {
+            //    }
+            //    StrategyA.prototype.AlgorithmInterface = function () {
+            //        console.log("StrategyA");
+            //    };
+            //    return StrategyA;
+            //}());
+            //var StrategyB = (function () {
+            //    function StrategyB() {
+            //    }
+            //    StrategyB.prototype.AlgorithmInterface = function () {
+            //        console.log("StrategyB");
+            //    };
+            //    return StrategyB;
+            //}());
+            //var StrategyC = (function () {
+            //    function StrategyC() {
+            //    }
+            //    StrategyC.prototype.AlgorithmInterface = function () {
+            //        console.log("StrategyC");
+            //    };
+            //    return StrategyC;
+            //}());
+            //var Context = (function () {
+            //    function Context() {
+            //        this.Strategy;
+            //    }
+            //    Context.prototype.ContextInterface = function () {
+            //        this.Strategy.AlgorithmInterface();
+            //    };
+            //    return Context;
+            //}());
+
+            //var context = new Context();
+
+            //$scope.Request = () => {
+            //    context.Strategy = new StrategyA();
+            //    context.ContextInterface();
+            //}
+
+            //$scope.Request2 = () => {
+            //    context.Strategy = new StrategyB();
+            //    context.ContextInterface();
+            //}
+
+            //$scope.Request3 = () => {
+            //    context.Strategy = new StrategyC();
+            //    context.ContextInterface();
+            //}
+
+//-------------------------------------------------------------------------------
+
+            //class StrategyA {
+            //    AlgorithmInterface() {
+            //        console.log("StrategyA");
+            //    }
+            //}
+
+            //class StrategyB {
+            //    AlgorithmInterface() {
+            //        console.log("StrategyB");
+            //    }
+            //}
+
+            //class StrategyC {
+            //    AlgorithmInterface() {
+            //        console.log("StrategyC");
+            //    }
+            //}
+
+            //class Context {
+            //    constructor() {
+            //        this.Strategy;
+            //    }
+
+            //    ContextInterface() {
+            //        this.Strategy.AlgorithmInterface();
+            //    }
+            //}
+
+            //var context = new Context();
+
+            //$scope.Request = () => {
+            //    context.Strategy = new StrategyA();
+            //    context.ContextInterface();
+            //}
+
+            //$scope.Request2 = () => {
+            //    context.Strategy = new StrategyB();
+            //    context.ContextInterface();
+            //}
+
+            //$scope.Request3 = () => {
+            //    context.Strategy = new StrategyC();
+            //    context.ContextInterface();
+            //}
+
+        });
+
+    </script>
+</head>
+<body ng-controller="ToDoCtrl">
+    <div class="container">
+        <button class="btn btn-primary"
+                ng-click="Request()">
+            Request
+        </button>
+        <button class="btn btn-primary"
+                ng-click="Request2()">
+            Request 2
+        </button>
+        <button class="btn btn-primary"
+                ng-click="Request3()">
+            Request 3
+        </button>
+
+    </div>
+</body>
+</html>

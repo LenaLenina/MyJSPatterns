@@ -1,0 +1,247 @@
+﻿<!DOCTYPE html>
+<html ng-app="todoApp">
+<head>
+    <title></title>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <script src="Scripts/angular.js"></script>
+    <script src="Scripts/states.js"></script>
+    <script>
+
+        var todoApp = angular.module("todoApp", []);
+
+        todoApp.controller("ToDoCtrl", function ($scope) {
+
+            var clearCarriersList = () => {
+                console.log("clear carrier list");
+            }
+
+            //var Context = function (state) {
+            //    this.state = state;
+
+            //    this.currentState = function () {
+            //        $scope.currentState = this.state.name;
+            //    }
+
+            //    this.Request = function (filter) {
+            //        this.state.handle(this, filter);
+            //    }
+            //}
+
+            class Context {
+                constructor(state) {
+                    this.state = state;
+                }
+
+                currentState() {
+                    $scope.currentState = this.state.name;
+                }
+
+                Request(filter) {
+                    this.state.handle(this, filter);
+                }
+
+                static Run() {
+                    console.log("run");
+                }
+            }
+
+            //var ClearCarrierList = function () {
+            //    this.name = "clear";
+
+            //    this.handle = function (context) {
+            //        clearCarriersList();
+            //        $scope.btnText = "Enter filter";
+            //        context.state = new SetKeyFilterWord();
+            //    }
+            //}
+
+            class ClearCarrierList {
+                constructor() {
+                    this.name = "clear";
+                }
+
+                handle(context) {
+                    clearCarriersList();
+                    $scope.btnText = "Enter filter";
+                    context.state = new SetKeyFilterWord();
+                }
+            }
+
+            //var SetKeyFilterWord = function () {
+            //    this.name = "set key filter word";
+
+            //    this.handle = function (context, filter) {
+            //        $scope.serverFiltration = true;
+            //        $scope.keyFilterWord = filter;
+            //        $scope.btnText = "Enter new filter";
+            //        context.state = new ExistKeyFilterWord();
+            //    }
+            //}
+
+            class SetKeyFilterWord {
+                constructor() {
+                    this.name = "set key filter word";
+                }
+
+                handle(context, filter) {
+                    if (filter && filter != "") {
+                        $scope.serverFiltration = true;
+                        $scope.keyFilterWord = filter;
+                        $scope.btnText = "Enter new filter";
+                        context.state = new ExistKeyFilterWord();
+                    }
+                }
+            }
+
+            //var ExistKeyFilterWord = function () {
+            //    this.name = "exist key filter word";
+
+            //    this.handle = function (context, filter) {
+            //        if (filter != "") {
+            //            if (filter.startsWith($scope.keyFilterWord)) {
+            //                $scope.serverFiltration = false;
+            //            }
+            //            else {
+            //                $scope.keyFilterWord = filter;
+            //                context.state = new SetKeyFilterWord();
+            //                context.Request(filter);
+            //            }
+            //        }
+            //    }
+            //}
+
+            class ExistKeyFilterWord {
+                constructor() {
+                    this.name = "exist key filter word";
+                }
+
+                handle(context, filter) {
+                    if (filter && filter != "") {
+                        if (filter.startsWith($scope.keyFilterWord)) {
+                            $scope.serverFiltration = false;
+                        }
+                        else {
+                            $scope.keyFilterWord = filter;
+                            context.state = new SetKeyFilterWord();
+                            context.Request(filter);
+                        }
+                    }
+                }
+            }
+
+            //var GroupSelected = function () {
+            //    this.name = "group selected";
+
+            //    this.handle = function (context, groupName) {
+            //        $scope.serverFiltration = false;
+            //        $scope.keyGroupName = groupName;
+            //        context.state = new GroupSelectedSetKeyFilterWord();
+            //    }
+            //}
+
+            class GroupSelected{
+
+                constructor() {
+                    this.name = "group selected";
+                }
+                
+                handle(context, groupName) {
+                    $scope.serverFiltration = false;
+                    $scope.keyGroupName = groupName;
+                    context.state = new GroupSelectedSetKeyFilterWord();
+                }
+            }
+
+            //var GroupSelectedSetKeyFilterWord = function () {
+            //    this.name = "group selected and set key filter word";
+
+            //    this.handle = function (context, filter) {
+            //        $scope.keyFilterWord = filter;
+            //    }
+            //}
+
+            class GroupSelectedSetKeyFilterWord{
+                constructor() {
+                    this.name = "group selected and set key filter word";
+                }
+
+                handle(context, filter) {
+                    $scope.keyFilterWord = filter;
+                }
+            }
+
+            var context = new Context(new ClearCarrierList());
+
+            $scope.currentState;
+
+            $scope.keyGroupName;
+
+            $scope.filter;
+
+            $scope.btnText = "Clear list";
+
+            $scope.serverFiltration;
+
+            $scope.keyFilterWord;
+
+            $scope.setFilter = (filter) => {
+                context.Request(filter);
+            }
+
+            $scope.getCurrentState = () => {
+                context.currentState();
+            }
+
+            $scope.selectGroup = (groupName) => {
+                context.state = new GroupSelected();
+                context.Request(groupName);
+            }
+
+            $scope.unSelectGroup = () => {
+                $scope.keyGroupName = "";
+                context.state = new ClearCarrierList();
+                context.Request();
+            }
+
+        });
+
+    </script>
+</head>
+<body ng-controller="ToDoCtrl">
+    <div class="container">
+        <div>
+            <button class="btn btn-primary" ng-click="getCurrentState()">Get Current State</button>
+        </div>
+        <div class="panel panel-info">
+            key group name - {{keyGroupName}}
+        </div>
+        <div class="panel panel-info">
+            key filter word - {{keyFilterWord}}
+        </div>
+        <div class="panel panel-info">
+            server filter - {{serverFiltration}}
+        </div>
+        <div class="panel panel-info">
+            current state - {{currentState}}
+        </div>
+        <div>
+            <button class="btn btn-primary" ng-click="selectGroup(groupName)">Select group</button>
+        </div>
+        <div>
+            <button class="btn btn-primary" ng-click="unSelectGroup()">UnSelect group</button>
+        </div>
+        <div class="panel">
+            <label class="label">Group Name</label>
+            <input class="form-control" type="text" ng-model="groupName" />
+        </div>
+        <div class="panel">
+            <button class="btn btn-primary" ng-click="setFilter(filter)">{{btnText}}</button>
+        </div>
+        <div class="panel">
+            <label class="label">Filter</label>
+            <input class="form-control" type="text" ng-model="filter" />
+        </div>
+
+    </div>
+</body>
+</html>

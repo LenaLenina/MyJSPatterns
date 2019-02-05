@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html ng-app="todoApp">
+<head>
+    <title></title>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <script src="Scripts/angular.js"></script>
+    <script>
+
+        var todoApp = angular.module("todoApp", []);
+
+        todoApp.controller("ToDoCtrl", function ($scope) {
+
+            var state1 = {
+                handle: (context) => {
+                    console.log("go to state2");
+                    context.state = state2;
+                }
+            }
+
+            var state2 = {
+                handle: (context) => {
+                    console.log("go to state1");
+                    context.state = state1;
+                }
+            }
+
+            var context = {
+                state: state1,
+                Request: () => {
+                    context.state.handle(context);
+                }
+            }
+
+            $scope.Request = () => {
+                context.Request();
+            }
+//--------------------------------------------------
+            //var Context = (function () {
+            //    function Context() {
+            //        this.state = new State1();
+            //    }
+            //    Context.prototype.Request = function () {
+            //        this.state.handle(this);
+            //    };
+            //    return Context;
+            //}());
+
+            //var State1 = (function () {
+            //    function State1() {
+            //    }
+            //    State1.prototype.handle = function (context) {
+            //        console.log("go to state2");
+            //        context.state = new State2();
+            //    };
+            //    return State1;
+            //}());
+
+            //var State2 = (function () {
+            //    function State2() {
+            //    }
+            //    State2.prototype.handle = function (context) {
+            //        console.log("go to state1");
+            //        context.state = new State1();
+            //    };
+            //    return State2;
+            //}());
+
+            //var context = new Context();
+
+            //$scope.Request = function () {
+            //    context.Request();
+            //};
+
+//--------------------------------------------------
+            //class Context {
+            //    constructor() {
+            //        this.state = new State1();
+            //    }
+
+            //    Request() {
+            //        this.state.handle(this);
+            //    }
+            //}
+
+            //class State1 {
+            //    handle(context) {
+            //        console.log("go to state2");
+            //        context.state = new State2();
+            //    }
+            //}
+
+            //class State2 {
+            //    handle(context) {
+            //        console.log("go to state1");
+            //        context.state = new State1();
+            //    }
+            //}
+
+            //var context = new Context();
+
+            //$scope.Request = () => {
+            //    context.Request();
+            //}
+
+        });
+
+    </script>
+</head>
+<body ng-controller="ToDoCtrl">
+    <div class="container">
+        <button class="btn btn-primary"
+                ng-click="Request()"
+                >
+            Request
+        </button>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<html ng-app="todoApp">
+<head>
+    <title></title>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <script src="Scripts/angular.js"></script>
+    <script>
+
+        var todoApp = angular.module("todoApp", []);
+
+        todoApp.controller("ToDoCtrl", function ($scope) {
+
+            var handler3 = {
+                successor: null,
+                handleRequest: (request) => {
+                    if (request == 3) {
+                        console.log("3");
+                    }
+                    else if (handler3.successor) {
+                        handler3.successor.handleRequest(request);
+                    }
+                }
+            }
+
+            var handler2 = {
+                successor: handler3,
+                handleRequest: (request) => {
+                    if (request == 2) {
+                        console.log("2");
+                    }
+                    else if (handler2.successor){
+                        handler2.successor.handleRequest(request);
+                    }
+                }
+            }
+
+            var handler1 = {
+                successor: handler2,
+                handleRequest: (request) => {
+                    if (request == 1) {
+                        console.log("1");
+                    }
+                    else if (handler1.successor) {
+                        handler1.successor.handleRequest(request);
+                    }
+                }
+            }
+
+            $scope.keyResult;
+
+            $scope.Request = (request) => {
+                handler1.handleRequest(request);
+            }
+
+//-----------------------------------------------------------------------------
+
+            //var Handler1 = (function () {
+            //    function Handler1() {
+            //        this.Successor;
+            //    }
+            //    Handler1.prototype.HandleRequest = function (request) {
+            //        if (request == 1) {
+            //            console.log("1");
+            //        }
+            //        else if (this.Successor) {
+            //            this.Successor.HandleRequest(request);
+            //        }
+            //    };
+            //    return Handler1;
+            //}());
+
+            //var Handler2 = (function () {
+            //    function Handler2() {
+            //        this.Successor;
+            //    }
+            //    Handler2.prototype.HandleRequest = function (request) {
+            //        if (request == 2) {
+            //            console.log("2");
+            //        }
+            //        else if (this.Successor) {
+            //            this.Successor.HandleRequest(request);
+            //        }
+            //    };
+            //    return Handler2;
+            //}());
+
+            //var handler1 = new Handler1();
+            //var handler2 = new Handler2();
+            //handler1.Successor = handler2;
+
+            //$scope.keyResult;
+
+            //$scope.Request = (request) => {
+            //    handler1.HandleRequest(request);
+            //}
+
+//-----------------------------------------------------------------------------
+
+            //class Handler1 {
+            //    constructor() {
+            //        this.Successor;
+            //    }
+
+            //    HandleRequest(request) {
+            //        if (request == 1) {
+            //            console.log("1");
+            //        }
+            //        else if (this.Successor) {
+            //            this.Successor.HandleRequest(request);
+            //        }
+            //    }
+            //}
+
+            //class Handler2 {
+            //    constructor() {
+            //        this.Successor;
+            //    }
+
+            //    HandleRequest(request) {
+            //        if (request == 2) {
+            //            console.log("2");
+            //        }
+            //        else if (this.Successor) {
+            //            this.Successor.HandleRequest(request);
+            //        }
+            //    }
+            //}
+
+            //var handler1 = new Handler1();
+            //var handler2 = new Handler2();
+            //handler1.Successor = handler2;
+
+            //$scope.keyResult;
+
+            //$scope.Request = (request) => {
+            //    handler1.HandleRequest(request);
+            //}
+
+        });
+
+    </script>
+</head>
+<body ng-controller="ToDoCtrl">
+    <div class="container">
+        <div>
+            {{keyResult}}
+        </div>
+        <div>
+            <button class="btn btn-primary"
+                    ng-click="Request(result)">
+                Request
+            </button>
+        </div>
+        <div>
+            <input class="form-control" ng-model="result" />
+        </div>
+    </div>
+</body>
+</html>

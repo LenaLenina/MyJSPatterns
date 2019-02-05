@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html ng-app="todoApp">
+<head>
+    <title></title>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <script src="Scripts/angular.js"></script>
+    <script>
+
+        var todoApp = angular.module("todoApp", []);
+
+        todoApp.controller("ToDoCtrl", function ($scope) {
+
+            class Singleton {
+                static constructor() {
+                    this.Singleton;
+                }
+
+                static GetSingleton() {
+                    if (this.Singleton === null) {
+                        this.Singleton = new Singleton();
+                        return this.Singleton;
+                    }
+
+                    return this.Singleton;
+                }
+
+                Run() {
+                    console.log("Run");
+                }
+            }
+
+            var singleton1 = Singleton.GetSingleton();
+            singleton1.Run();
+            
+        });
+
+    </script>
+</head>
+<body ng-controller="ToDoCtrl">
+    <div class="container">
+        
+
+    </div>
+</body>
+</html>

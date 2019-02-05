@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html ng-app="todoApp">
+<head>
+    <title></title>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <script src="Scripts/angular.js"></script>
+    <script>
+
+        var todoApp = angular.module("todoApp", []);
+
+        todoApp.controller("ToDoCtrl", function ($scope) {
+
+            var Component = {
+                Operation() {
+                    console.log("Component2");
+                }
+            }
+
+            var DecoratorA = {
+                component: null,
+                addedState: "Some State2",
+                Operation() {
+                    if (DecoratorA.component) {
+                        DecoratorA.component.Operation();
+                    }
+                    console.log(DecoratorA.addedState);
+                }
+            }
+
+            var DecoratorB = {
+                component: null,
+                AddedBehavior() {
+                    console.log("Behavior2");
+                },
+                Operation() {
+                    if (DecoratorB.component) {
+                        DecoratorB.component.Operation();
+                    }
+                    DecoratorB.AddedBehavior();
+                }
+            }
+
+            DecoratorA.component = Component;
+            DecoratorB.component = DecoratorA;
+            DecoratorB.Operation();
+
+            //---------------------------------------------------
+
+            //class Component {
+            //    Operation() {
+            //        console.log("Component");
+            //    }
+            //}
+
+            //class DecoratorA {
+            //    constructor(component) {
+            //        this.component = component;
+            //        this.addedState = "Some State";
+            //    }
+
+            //    Operation() {
+            //        if (this.component) {
+            //            this.component.Operation();
+            //        }
+            //        console.log(this.addedState);
+            //    }
+            //}
+
+            //class DecoratorB {
+            //    constructor(component) {
+            //        this.component = component;
+            //    }
+
+            //    AddedBehavior() {
+            //        console.log("Behavior");
+            //    }
+
+            //    Operation() {
+            //        if (this.component) {
+            //            this.component.Operation();
+            //        }
+            //        this.AddedBehavior();
+            //    }
+            //}
+
+            //var component = new Component();
+            //var decoratorA = new DecoratorA(component);
+            //var decoratorB = new DecoratorB(decoratorA);
+
+            //decoratorB.Operation();
+
+        });
+
+    </script>
+</head>
+<body ng-controller="ToDoCtrl">
+
+</body>
+</html>

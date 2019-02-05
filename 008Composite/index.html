@@ -1,0 +1,153 @@
+﻿<!DOCTYPE html>
+<html ng-app="todoApp">
+<head>
+    <title></title>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <script src="Scripts/angular.js"></script>
+    <script>
+
+        var todoApp = angular.module("todoApp", []);
+
+        todoApp.controller("ToDoCtrl", function ($scope) {
+
+            var Composite = (function () {
+
+                function Composite(name) {
+                    this.name = name;
+                    this.nodes = [];
+                }
+
+                Composite.prototype.Operation = function () {
+                    console.log(this.name);
+                    this.nodes.forEach(function (item) {
+                        item.Operation();
+                    });
+                };
+
+                Composite.prototype.Add = function (component) {
+                    this.nodes.push(component);
+                };
+
+                Composite.prototype.Remove = function (component) {
+                    var index = this.nodes.indexOf(component);
+                    this.nodes.splice(index, 1);
+                };
+
+                Composite.prototype.GetChild = function (index) {
+                    return this.nodes[index];
+                };
+
+                return Composite;
+            }());
+
+            var Leaf = (function () {
+                function Leaf(name) {
+                    this.name = name;
+                }
+
+                Leaf.prototype.Operation = function () {
+                    console.log(this.name);
+                };
+
+                return Leaf;
+            }());
+
+            var root = new Composite("root");
+            var branch1 = new Composite("BR1");
+            var branch2 = new Composite("BR2");
+            var leaf1 = new Leaf("L1");
+            var leaf2 = new Leaf("L2");
+
+            root.Add(branch1);
+            root.Add(branch2);
+            branch1.Add(leaf1);
+            branch2.Add(leaf2);
+            root.Operation();
+            console.log("--------------------------");
+
+            branch1.Remove(leaf1);
+            root.Operation();
+            console.log("--------------------------");
+
+            branch1.Add(branch2);
+            root.Operation();
+            console.log("--------------------------");
+
+            root.Remove(branch2);
+            root.Operation();
+            console.log("--------------------------");
+
+            //----------------------------------------------------------------
+
+            //class Composite {
+            //    constructor(name) {
+            //        this.name = name;
+            //        this.nodes = [];
+            //    }
+
+            //    Operation() {
+            //        console.log(this.name);
+
+            //        this.nodes.forEach((item) => {
+            //            item.Operation();
+            //        })
+            //    }
+
+            //    Add(component) {
+            //        this.nodes.push(component);
+            //    }
+
+            //    Remove(component) {
+            //        let index = this.nodes.indexOf(component);
+
+            //        this.nodes.splice(index, 1);
+            //    }
+
+            //    GetChild(index) {
+            //        return this.nodes[index];
+            //    }
+            //}
+
+            //class Leaf {
+            //    constructor(name) {
+            //        this.name = name;
+            //    }
+
+            //    Operation() {
+            //        console.log(this.name);
+            //    }
+            //}
+
+            //var root = new Composite("root");
+            //var branch1 = new Composite("BR1");
+            //var branch2 = new Composite("BR2");
+            //var leaf1 = new Leaf("L1");
+            //var leaf2 = new Leaf("L2");
+
+            //root.Add(branch1);
+            //root.Add(branch2);
+            //branch1.Add(leaf1);
+            //branch2.Add(leaf2);
+            //root.Operation();
+            //console.log("--------------------------");
+
+            //branch1.Remove(leaf1);
+            //root.Operation();
+            //console.log("--------------------------");
+
+            //branch1.Add(branch2);
+            //root.Operation();
+            //console.log("--------------------------");
+
+            //root.Remove(branch2);
+            //root.Operation();
+            //console.log("--------------------------");
+
+        });
+
+    </script>
+</head>
+<body ng-controller="ToDoCtrl">
+
+</body>
+</html>

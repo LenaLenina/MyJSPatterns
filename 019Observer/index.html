@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html>
+<html ng-app="todoApp">
+<head>
+    <title></title>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <script src="Scripts/angular.js"></script>
+    <script>
+
+        var todoApp = angular.module("todoApp", []);
+
+        todoApp.controller("ToDoCtrl", function ($scope) {
+
+            var subject = {
+                observers : [],
+                attach: (observer) => {
+                    subject.observers.push(observer);
+                },
+                detach: (observer) => {
+                    let index = subject.observers.indexOf(observer);
+                    subject.observers.splice(index, 1);
+                },
+                notify: () => {
+                    subject.observers.forEach(x => x.update());
+                }
+            }
+
+            var observerA = {
+                update: () => {
+                    console.log("observerA update");
+                }
+            }
+
+            var observerB = {
+                update: () => {
+                    console.log("observerB update");
+                }
+            }
+
+            $scope.Request = () => {
+                subject.notify();
+            }
+
+            $scope.Request1 = () => {
+                subject.attach(observerA);
+            }
+
+            $scope.Request2 = () => {
+                subject.detach(observerA);
+            }
+
+            $scope.Request3 = () => {
+                subject.attach(observerB);
+            }
+
+            $scope.Request4 = () => {
+                subject.detach(observerB);
+            }
+            
+            //--------------------------------------------------
+            //class subject {
+            //    constructor() {
+            //        this.observers = [];
+            //    }
+
+            //    attach(observer) {
+            //        this.observers.push(observer);
+            //    }
+
+            //    detach(observer) {
+            //        let index = this.observers.indexOf(observer);
+            //        this.observers.splice(index, 1);
+            //    }
+
+            //    notify() {
+            //        this.observers.forEach(x => x.update());
+            //    }
+            //}
+
+            //class observerA {
+            //    update() {
+            //        console.log("observerA update");
+            //    }
+            //}
+
+            //class observerB {
+            //    update() {
+            //        console.log("observerB update");
+            //    }
+            //}
+
+            //var observerA1 = new observerA();
+            //var observerB1 = new observerB();
+            //var subject1 = new subject();
+
+            //subject1.attach(observerA1);
+            //subject1.attach(observerB1);
+
+            //$scope.Request = () => {
+            //    subject1.notify();
+            //}
+
+            //$scope.Request2 = () => {
+            //    subject1.detach(observerA1);
+            //}
+
+        });
+
+    </script>
+</head>
+<body ng-controller="ToDoCtrl">
+    <div class="container">
+        <button class="btn btn-primary"
+                ng-click="Request()">
+            Notify all observers
+        </button>
+        <button class="btn btn-primary"
+                ng-click="Request1()">
+            Attach A
+        </button>
+        <button class="btn btn-primary"
+                ng-click="Request2()">
+            Detach A
+        </button>
+        <button class="btn btn-primary"
+                ng-click="Request3()">
+            Attach B
+        </button>
+        <button class="btn btn-primary"
+                ng-click="Request4()">
+            Detach B
+        </button>
+    </div>
+</body>
+</html>

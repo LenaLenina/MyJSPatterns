@@ -1,0 +1,280 @@
+﻿<!DOCTYPE html>
+<html ng-app="todoApp">
+<head>
+    <title></title>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <script src="Scripts/angular.js"></script>
+    <script>
+
+        var todoApp = angular.module("todoApp", []);
+
+        todoApp.controller("ToDoCtrl", function ($scope) {
+
+            var strategyA = {
+                algorithmInterface: () => {
+                    console.log("StrategyA");
+                }
+            }
+
+            var strategyB = {
+                algorithmInterface: () => {
+                    console.log("StrategyB");
+                }
+            }
+
+            var strategyC = {
+                algorithmInterface: () => {
+                    console.log("StrategyC");
+                }
+            }
+
+            var context = {
+                strategy: null,
+                contextInterface: () => {
+                    context.strategy.algorithmInterface();
+                }
+            }
+
+            var reciver = {
+                strategy: null,
+                action: () => {
+                    reciver.strategy.algorithmInterface();
+                }
+            }
+
+            var commandA = {
+                reciver: reciver,
+                execute: () => {
+                    reciver.strategy = strategyA;
+                    commandA.reciver.action();
+                }
+            }
+
+            var commandB = {
+                reciver: reciver,
+                execute: () => {
+                    reciver.strategy = strategyB;
+                    commandB.reciver.action();
+                }
+            }
+
+            var commandC = {
+                reciver: reciver,
+                execute: () => {
+                    reciver.strategy = strategyB;
+                    commandC.reciver.action();
+                }
+            }
+
+            var invoker = {
+                command: null,
+                storeCommand: (command) => {
+                    invoker.command = command;
+                },
+                execute: () => {
+                    invoker.command.execute();
+                }
+            }
+
+            $scope.CommandA = function () {
+                invoker.storeCommand(commandA);
+                invoker.execute();
+            };
+
+            $scope.CommandB = function () {
+                invoker.storeCommand(commandB);
+                invoker.execute();
+            };
+
+            $scope.CommandC = function () {
+                invoker.storeCommand(commandC);
+                invoker.execute();
+            };
+
+//-----------------------------------------------------------------------------
+
+            //var CommandA = (function () {
+            //    function CommandA(reciver) {
+            //        this.Reciver = reciver;
+            //    }
+            //    CommandA.prototype.Execute = function () {
+            //        this.Reciver.Action("A");
+            //    };
+            //    return CommandA;
+            //}());
+
+            //var CommandB = (function () {
+            //    function CommandB(reciver) {
+            //        this.Reciver = reciver;
+            //    }
+            //    CommandB.prototype.Execute = function () {
+            //        this.Reciver.Action("B");
+            //    };
+            //    return CommandB;
+            //}());
+
+            //var CommandC = (function () {
+            //    function CommandC(reciver) {
+            //        this.Reciver = reciver;
+            //    }
+            //    CommandC.prototype.Execute = function () {
+            //        this.Reciver.Action("C");
+            //    };
+            //    return CommandC;
+            //}());
+
+            //var Reciver = (function () {
+            //    function Reciver() {
+            //    }
+            //    Reciver.prototype.Action = function (operator) {
+            //        switch (operator) {
+            //            case "A":
+            //                console.log("A action");
+            //                break;
+            //            case "B":
+            //                console.log("B action");
+            //                break;
+            //            case "C":
+            //                console.log("C action");
+            //                break;
+            //        }
+            //    };
+            //    return Reciver;
+            //}());
+
+            //var Invoker = (function () {
+            //    function Invoker() {
+            //    }
+            //    Invoker.prototype.StoreCommand = function (command) {
+            //        this.command = command;
+            //    };
+            //    Invoker.prototype.Execute = function () {
+            //        this.command.Execute();
+            //    };
+            //    return Invoker;
+            //}());
+
+            //var reciver = new Reciver();
+            //var commandA = new CommandA(reciver);
+            //var commandB = new CommandB(reciver);
+            //var commandC = new CommandC(reciver);
+            //var invoker = new Invoker();
+
+            //$scope.CommandA = function () {
+            //    invoker.StoreCommand(commandA);
+            //    invoker.Execute();
+            //};
+
+            //$scope.CommandB = function () {
+            //    invoker.StoreCommand(commandB);
+            //    invoker.Execute();
+            //};
+
+            //$scope.CommandC = function () {
+            //    invoker.StoreCommand(commandC);
+            //    invoker.Execute();
+            //};
+
+//-----------------------------------------------------------------------------
+
+            //class CommandA {
+            //    constructor(reciver) {
+            //        this.Reciver = reciver;
+            //    }
+
+            //    Execute() {
+            //        this.Reciver.Action("A");
+            //    }
+            //}
+
+            //class CommandB {
+            //    constructor(reciver) {
+            //        this.Reciver = reciver;
+            //    }
+
+            //    Execute() {
+            //        this.Reciver.Action("B");
+            //    }
+            //}
+
+            //class CommandC {
+            //    constructor(reciver) {
+            //        this.Reciver = reciver;
+            //    }
+
+            //    Execute() {
+            //        this.Reciver.Action("C");
+            //    }
+            //}
+
+            //class Reciver {
+            //    Action(operator) {
+
+            //        switch (operator) {
+            //            case "A":
+            //                console.log("A action");
+            //                break;
+            //            case "B":
+            //                console.log("B action");
+            //                break;
+            //            case "C":
+            //                console.log("C action");
+            //                break;
+            //        }
+            //    }
+            //}
+
+            //class Invoker {
+            //    StoreCommand(command) {
+            //        this.command = command;
+            //    }
+
+            //    Execute() {
+            //        this.command.Execute();
+            //    }
+            //}
+
+            //var reciver = new Reciver();
+            //var commandA = new CommandA(reciver);
+            //var commandB = new CommandB(reciver);
+            //var commandC = new CommandC(reciver);
+            //var invoker = new Invoker();
+
+            //$scope.CommandA = () => {
+            //    invoker.StoreCommand(commandA);
+            //    invoker.Execute();
+            //}
+
+            //$scope.CommandB = () => {
+            //    invoker.StoreCommand(commandB);
+            //    invoker.Execute();
+            //}
+
+            //$scope.CommandC = () => {
+            //    invoker.StoreCommand(commandC);
+            //    invoker.Execute();
+            //}
+
+        });
+
+    </script>
+</head>
+<body ng-controller="ToDoCtrl">
+    <div class="container">
+        <div>
+            <button class="btn btn-primary"
+                    ng-click="CommandA()">
+                CommandA
+            </button>
+            <button class="btn btn-primary"
+                    ng-click="CommandB()">
+                CommandB
+            </button>
+            <button class="btn btn-primary"
+                    ng-click="CommandC()">
+                CommandC
+            </button>
+        </div>
+    </div>
+</body>
+</html>

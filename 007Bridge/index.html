@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html ng-app="todoApp">
+<head>
+    <title></title>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <script src="Scripts/angular.js"></script>
+    <script>
+
+        var todoApp = angular.module("todoApp", []);
+
+        todoApp.controller("ToDoCtrl", function ($scope) {
+
+            //class ImplementA {
+            //    Run() {
+            //        console.log("ImplementA");
+            //    }
+            //}
+
+            //class ImplementB {
+            //    Run() {
+            //        console.log("ImplementB");
+            //    }
+            //}
+
+            //class ConcreteAbstract {
+            //    constructor(implement) {
+            //        this.Implement = implement;
+            //    }
+
+            //    Operation() {
+            //        console.log("base class");
+            //        console.log("child class");
+            //        this.Implement.Run();
+            //    }
+            //}
+
+            //var concrete = new ConcreteAbstract(new ImplementA());
+            //concrete.Operation();
+
+            //concrete.Implement = new ImplementB();
+            //concrete.Operation();
+
+            //-------------------------------------------------------------
+
+            //var ImplementA = (function () {
+            //    function ImplementA() {
+            //    }
+
+            //    ImplementA.prototype.Run = function () {
+            //        console.log("ImplementA");
+            //    };
+
+            //    return ImplementA;
+            //}());
+
+            //var ImplementB = (function () {
+            //    function ImplementB() {
+            //    }
+
+            //    ImplementB.prototype.Run = function () {
+            //        console.log("ImplementB");
+            //    };
+
+            //    return ImplementB;
+            //}());
+
+            //var ConcreteAbstract = (function () {
+            //    function ConcreteAbstract(implement) {
+            //        this.Implement = implement;
+            //    }
+
+            //    ConcreteAbstract.prototype.Operation = function () {
+            //        console.log("base class");
+            //        console.log("child class");
+            //        this.Implement.Run();
+            //    };
+
+            //    return ConcreteAbstract;
+            //}());
+
+            //var concrete = new ConcreteAbstract(new ImplementA());
+            //concrete.Operation();
+
+            //concrete.Implement = new ImplementB();
+            //concrete.Operation();
+
+            //---------------------------------------------------------------
+
+            function ImplementA() {
+                console.log("ImplementA");
+            };
+
+            function ImplementB() {
+                console.log("ImplementB");
+            };
+
+            var ConcreteAbstract = {
+                Implement: ImplementA,
+                Operation: () => {
+                    console.log("base class");
+                    console.log("child class");
+                    ConcreteAbstract.Implement();
+                }
+            }
+
+            ConcreteAbstract.Operation();
+            ConcreteAbstract.Implement = ImplementB;
+            ConcreteAbstract.Operation();
+        });
+
+    </script>
+</head>
+<body ng-controller="ToDoCtrl">
+
+</body>
+</html>

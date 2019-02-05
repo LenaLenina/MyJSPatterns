@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html>
+<html ng-app="todoApp">
+<head>
+    <title></title>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <script src="Scripts/angular.js"></script>
+    <script>
+
+        var todoApp = angular.module("todoApp", []);
+
+        todoApp.controller("ToDoCtrl", function ($scope) {
+
+            var ProductA = {
+                name: "ProductA",
+                Show: () => {
+                    console.log("name - " + ProductA.name);
+                }
+            }
+
+            var ProductB  = {
+                name: "ProductB",
+                Show: () => {
+                    console.log("name - " + ProductB.name);
+                }
+            }
+
+            var ProductC = {
+                name: "ProductC",
+                Show: () => {
+                    console.log("name - " + ProductC.name);
+                }
+            }
+
+            ProductA.Show();
+            ProductB.Show();
+            ProductC.Show();
+            
+
+            //---------------------------------------------------------------------
+
+            //var product = CreatorProductA.GetProduct();
+            //product.Show();
+
+            //product = CreatorProductB.GetProduct();
+            //product.Show();
+
+            //product = CreatorProductC.GetProduct();
+            //product.Show();
+
+            //class Product {
+            //    constructor(name) {
+            //        this.name = name;
+            //    }
+
+            //    Show() {
+            //        console.log(typeof this);
+            //        console.log("name - " + this.name);
+            //    }
+            //}
+
+            //class ProductA extends Product {
+            //    constructor() {
+            //        super("ProductA");
+            //    }
+            //}
+
+            //class ProductB extends Product {
+            //    constructor() {
+            //        super("ProductB");
+            //    }
+            //}
+
+            //class ProductC extends Product {
+            //    constructor() {
+            //        super("ProductC");
+            //    }
+            //}
+
+            //class Creator {
+            //    static GetProduct() { throw new Error('You have to implement the method!');}
+            //}
+
+            //class CreatorProductA extends Creator {
+            //    static GetProduct() {
+            //        return new ProductA();
+            //    }
+            //}
+
+            //class CreatorProductB extends Creator {
+            //    static GetProduct() {
+            //        return new ProductB();
+            //    }
+            //}
+
+            //class CreatorProductC extends Creator {
+            //    static GetProduct() {
+            //        return new ProductC();
+            //    }
+            //}
+
+            //var product = CreatorProductA.GetProduct();
+            //product.Show();
+
+            //product = CreatorProductB.GetProduct();
+            //product.Show();
+
+            //product = CreatorProductC.GetProduct();
+            //product.Show();
+            
+        });
+
+    </script>
+</head>
+<body ng-controller="ToDoCtrl">
+    <div class="container">
+        
+
+    </div>
+</body>
+</html>

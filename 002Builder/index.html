@@ -1,0 +1,224 @@
+﻿<!DOCTYPE html>
+<html ng-app="todoApp">
+<head>
+    <title></title>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <script src="Scripts/angular.js"></script>
+    <script src="Scripts/states.js"></script>
+    <script>
+
+        var todoApp = angular.module("todoApp", []);
+
+        todoApp.controller("ToDoCtrl", function ($scope) {
+
+            var Floor = {
+                name: "Floor"
+            }
+
+            var Box = {
+                name: "Box"
+            }
+
+            var Roof = {
+                name: "Roof"
+            }
+
+            var House = {
+                parts: [],
+                AddPart: (part) => {
+                    House.parts.push(part);
+                },
+                Show: () => {
+                    House.parts.forEach((item) => {
+                        console.log(item.name);
+                    })
+                }
+            }
+
+            var BuilderA = {
+                house: House,
+                
+                BuildFloor: () => {
+                    BuilderA.house.AddPart(Floor);
+                },
+
+                BuildBox: () => {
+                    BuilderA.house.AddPart(Box);
+                },
+
+                BuildRoof: () => {
+                    BuilderA.house.AddPart(Roof);
+                },
+
+                GetHouse() {
+                    return BuilderA.house;
+                }
+            }
+
+            var Manager = {
+                builder: BuilderA,
+
+                ConstructCottage: () => {
+                    Manager.builder.BuildFloor();
+                    Manager.builder.BuildBox();
+                    Manager.builder.BuildRoof();
+                },
+
+                ConstructTwoStoryHouse() {
+                    Manager.builder.BuildFloor();
+                    Manager.builder.BuildBox();
+                    Manager.builder.BuildBox();
+                    Manager.builder.BuildRoof();
+                },
+
+                ConstructThreeStoryHouse() {
+                    Manager.builder.BuildFloor();
+                    Manager.builder.BuildBox();
+                    Manager.builder.BuildBox();
+                    Manager.builder.BuildBox();
+                    Manager.builder.BuildRoof();
+                }
+            }
+
+            Manager.ConstructCottage();
+            var house = BuilderA.GetHouse();
+            house.Show();
+
+            House.parts = [];
+            Manager.ConstructTwoStoryHouse();
+            var house = BuilderA.GetHouse();
+            house.Show();
+
+            House.parts = [];
+            Manager.ConstructThreeStoryHouse();
+            var house = BuilderA.GetHouse();
+            house.Show();
+
+            //------------------------------------------------------------------
+
+            //class HousePart {
+
+            //    constructor(name) {
+            //        this.name = name;
+            //    }
+            //}
+
+            //class Floor extends HousePart {
+            //    constructor() {
+            //        super("Floor");
+            //    }
+            //}
+
+            //class Box extends HousePart {
+            //    constructor() {
+            //        super("Box");
+            //    }
+            //}
+
+            //class Roof extends HousePart {
+            //    constructor() {
+            //        super("Roof");
+            //    }
+            //}
+
+            //class House {
+            //    constructor() {
+            //        this.parts = [];
+            //    }
+
+            //    AddPart(part) {
+            //        this.parts.push(part);
+            //    }
+
+            //    Show() {
+            //        this.parts.forEach((item) => {
+            //            console.log(item.name);
+            //        })
+            //    }
+            //}
+
+            //class Builder {
+            //    BuildFloor() { throw new Error('You have to implement the method!'); }
+            //    BuildBox() { throw new Error('You have to implement the method!'); }
+            //    BuildRoof() { throw new Error('You have to implement the method!'); }
+            //    GetHouse() {throw new Error('You have to implement the method!');}
+            //}
+
+            //class BuilderA extends Builder {
+            //    constructor() {
+            //        super();
+            //        this.house = new House();
+            //    }
+
+            //    BuildFloor() {
+            //        this.house.AddPart(new Floor());
+            //    }
+
+            //    BuildBox() {
+            //        this.house.AddPart(new Box());
+            //    }
+
+            //    BuildRoof() {
+            //        this.house.AddPart(new Roof());
+            //    }
+
+            //    GetHouse() {
+            //        return this.house;
+            //    }
+            //}
+
+            //class Manager {
+            //    constructor(builder) {
+            //        this.builder = builder;
+            //    }
+
+            //    ConstructCottage() {
+            //        this.builder.BuildFloor();
+            //        this.builder.BuildBox();
+            //        this.builder.BuildRoof();
+            //    }
+
+            //    ConstructTwoStoryHouse() {
+            //        this.builder.BuildFloor();
+            //        this.builder.BuildBox();
+            //        this.builder.BuildBox();
+            //        this.builder.BuildRoof();
+            //    }
+
+            //    ConstructThreeStoryHouse() {
+            //        this.builder.BuildFloor();
+            //        this.builder.BuildBox();
+            //        this.builder.BuildBox();
+            //        this.builder.BuildBox();
+            //        this.builder.BuildRoof();
+            //    }
+            //}
+
+            //var builder = new BuilderA();
+            //var manager = new Manager(builder);
+            //manager.ConstructCottage();
+            //var house = builder.GetHouse();
+            //house.Show();
+
+            //var builder = new BuilderA();
+            //var manager = new Manager(builder);
+            //manager.ConstructTwoStoryHouse();
+            //var house = builder.GetHouse();
+            //house.Show();
+
+            //var builder = new BuilderA();
+            //var manager = new Manager(builder);
+            //manager.ConstructThreeStoryHouse();
+            //var house = builder.GetHouse();
+            //house.Show();
+        });
+
+    </script>
+</head>
+<body ng-controller="ToDoCtrl">
+    <div class="container">
+        
+
+    </div>
+</body>
+</html>

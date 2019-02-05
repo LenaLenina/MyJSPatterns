@@ -1,0 +1,229 @@
+﻿<!DOCTYPE html>
+<html ng-app="todoApp">
+<head>
+    <title></title>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <script src="Scripts/angular.js"></script>
+    <script src="Scripts/states.js"></script>
+    <script>
+
+        var todoApp = angular.module("todoApp", []);
+
+        todoApp.controller("ToDoCtrl", function ($scope) {
+
+            var BottleA = {
+                name: "bottle A"
+            }
+
+            var BottleB = {
+                name: "bottle B"
+            }
+
+            var WaterA = {
+                name: "water A"
+            }
+
+            var WaterB = {
+                name: "water B"
+            }
+
+            var FactoryA = {
+                GetWater: () => {
+                    return WaterA;
+                },
+
+                GetBottle: () => {
+                    return BottleA;
+                }
+            }
+
+            var FactoryB = {
+                GetWater: () => {
+                    return WaterB;
+                },
+
+                GetBottle: () => {
+                    return BottleB;
+                }
+            }
+
+            var Client = {
+                Bottle: null,
+                Water: null,
+                Construct: (factory) => {
+                    Client.Bottle = factory.GetBottle();
+                    Client.Water = factory.GetWater();
+                },
+                Operation: () => {
+                    let result = Client.Bottle.name + " " + Client.Water.name;
+                    console.log(result);
+                }
+            }
+
+            Client.Construct(FactoryA);
+            Client.Operation();
+
+            Client.Construct(FactoryB);
+            Client.Operation();
+
+            //-----------------------------------------------------------------------------
+
+            //class FactoryA {
+            //    GetWater() {
+            //        return new WaterA();
+            //    }
+
+            //    GetBottle() {
+            //        return new BottleA();
+            //    }
+            //}
+
+            //class FactoryB{
+            //    GetWater() {
+            //        return new WaterB();
+            //    }
+
+            //    GetBottle() {
+            //        return new BottleB();
+            //    }
+            //}
+
+            //class BottleA{
+            //    constructor() {
+            //        this.name = "bottle A";
+            //    }
+            //}
+
+            //class BottleB{
+            //    constructor() {
+            //        this.name = "bottle B";
+            //    }
+            //}
+
+            //class WaterA{
+            //    constructor() {
+            //        this.name = "water A";
+            //    }
+            //}
+
+            //class WaterB{
+            //    constructor() {
+            //        this.name = "water B";
+            //    }
+            //}
+
+            //class Client {
+            //    constructor(factory) {
+            //        this.Bottle = factory.GetBottle();
+            //        this.Water = factory.GetWater();
+            //    }
+
+            //    Operation() {
+            //        let result = this.Bottle.name + " " + this.Water.name;
+            //        console.log(result);
+            //    }
+            //}
+
+            //var client = new Client(new FactoryA());
+            //client.Operation();
+
+            //client = new Client(new FactoryB());
+            //client.Operation();
+
+            //-----------------------------------------------------------------------------
+
+            //class Factory {
+            //    GetWater() {
+            //        throw new Error('You have to implement the method!');
+            //    }
+
+            //    GetBottle() {
+            //        throw new Error('You have to implement the method!');
+            //    }
+            //}
+            
+            //class FactoryA extends Factory {
+            //    GetWater() {
+            //        return new WaterA();
+            //    }
+
+            //    GetBottle() {
+            //        return new BottleA();
+            //    }
+            //}
+
+            //class FactoryB extends Factory {
+            //    GetWater() {
+            //        return new WaterB();
+            //    }
+
+            //    GetBottle() {
+            //        return new BottleB();
+            //    }
+            //}
+
+            //class Bottle {
+            //    constructor(name) {
+            //        this.name = name; 
+            //    }
+            //}
+
+            //class BottleA extends Bottle {
+            //    constructor() {
+            //        super("bottle A");
+            //    }
+            //}
+
+            //class BottleB extends Bottle {
+            //    constructor() {
+            //        super("bottle B");
+            //    }
+            //}
+
+            //class Water {
+            //    constructor(name) {
+            //        this.name = name;
+            //    }
+            //}
+
+            //class WaterA extends Water {
+            //    constructor() {
+            //        super("water A");
+            //    }
+            //}
+
+            //class WaterB extends Water {
+            //    constructor() {
+            //        super("water B");
+            //    }
+            //}
+
+            //class Client {
+            //    constructor(factory) {
+            //        this.Bottle = factory.GetBottle();
+            //        this.Water = factory.GetWater();
+            //    }
+
+            //    Operation() {
+            //        let result = this.Bottle.name + " " + this.Water.name;
+            //        console.log(result);
+            //    }
+            //}
+
+            //var client = new Client(new FactoryA());
+            //client.Operation();
+
+            //client = new Client(new FactoryB());
+            //client.Operation();
+
+        });
+
+    </script>
+</head>
+<body ng-controller="ToDoCtrl">
+    <div class="container">
+        
+
+    </div>
+</body>
+</html>
